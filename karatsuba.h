@@ -9,17 +9,11 @@ mp::cpp_int karatsuba(mp::cpp_int a, mp::cpp_int b) {
     https://en.wikipedia.org/wiki/Karatsuba_algorithm
     This is only actually faster than the standard algorithm when a,b are both very large.
   */
-  if(a == 0 || b == 0) {
-    return 0;
-  }
-  if(a == 1) {
-    return b;
-  }
-  if(b == 1) {
-    return a;
-  }
-  // find m in order to split a,b approximately down the middle
   const unsigned int m = std::min(msb(a), msb(b)) / 2;
+  // find m in order to split a,b approximately down the middle
+  if(m < 3246) { // magic constant may or may not be correct. Sorry
+    return a * b;
+  }
 
   // write a=(a0+a1*2^m) and b=(b0+b1*2^m)
   const mp::cpp_int a1 = a >> m;
@@ -27,8 +21,8 @@ mp::cpp_int karatsuba(mp::cpp_int a, mp::cpp_int b) {
   const mp::cpp_int b1 = b >> m;
   const mp::cpp_int b0 = b - (b1 << m);
 
-  const mp::cpp_int z0 = a0 * b0;
-  const mp::cpp_int z2 = a1 * b1;
-  const mp::cpp_int z1 = (a1 + a0) * (b1 + b0) - z2 - z0;
+  const mp::cpp_int z0 = karatsuba(a0, b0);
+  const mp::cpp_int z2 = karatsuba(a1, b1);
+  const mp::cpp_int z1 = karatsuba(a1 + a0, b1 + b0) - z2 - z0;
   return (z2 << (2 * m)) + (z1 << m) + z0;
 }
