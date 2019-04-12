@@ -11,7 +11,7 @@ mp::cpp_int karatsuba(mp::cpp_int a, mp::cpp_int b) {
   */
   const unsigned int m = std::min(msb(a), msb(b)) / 2;
   // find m in order to split a,b approximately down the middle
-  if(m < 3246) { // magic constant may or may not be correct. Sorry
+  if(m < 1605) { // magic constant is only approximately correct
     return a * b;
   }
 
