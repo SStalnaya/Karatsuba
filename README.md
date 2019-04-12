@@ -13,4 +13,4 @@ for(unsigned int n = 0; n != 24; ++n) {
 }
   ```
   
-  takes 12 minutes and 15 seconds on my machine, and 16 minutes and 11 seconds with the default algorithm.
+  takes 45 seconds on my machine, and 16 minutes and 11 seconds with the default algorithm.
