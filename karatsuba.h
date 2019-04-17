@@ -9,6 +9,15 @@ mp::cpp_int karatsuba(mp::cpp_int a, mp::cpp_int b) {
     https://en.wikipedia.org/wiki/Karatsuba_algorithm
     This is only actually faster than the standard algorithm when a,b are both very large.
   */
+  if(a == 0 || b == 0) {
+    return 0;
+  }
+  if(a < 0) {
+    return -karatsuba(-a, b);
+  }
+  if(b < 0) {
+    return -karatsuba(a,-b);
+  }
   const unsigned int m = std::min(msb(a), msb(b)) / 2;
   // find m in order to split a,b approximately down the middle
   if(m < 1605) { // magic constant is only approximately correct
