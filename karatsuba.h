@@ -19,9 +19,6 @@ mp::cpp_int karatsuba(mp::cpp_int a, mp::cpp_int b) {
     return -karatsuba(-a, b);
   }
   if(b < 0) {
-    if(a < 0) {
-      return karatsuba(-a,-b);
-    }
     return -karatsuba(a,-b);
   }
   const unsigned int m = std::min(msb(a), msb(b)) / 2;
